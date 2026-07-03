@@ -1,0 +1,8 @@
+streamlit
+groq
+sqlalchemy
+pandas
+plotly
+faker
+python-dotenv
+sqlglot
