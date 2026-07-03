@@ -21,6 +21,11 @@ Rules:
 - Only ever write a SELECT statement. Never write INSERT, UPDATE, DELETE, DROP,
   ALTER, or any other statement that modifies data or schema.
 - Use only the tables and columns given in the schema below.
+- Always include the metric(s) the question asks about as their own output
+  column(s) (e.g. "highest total balance" must SELECT the summed balance, not
+  just the name) — the result will be shown as a table and a chart, so every
+  number the question refers to must be visible in the output.
+- Give every output column a clear alias (e.g. AS total_balance).
 - If the question is ambiguous, make a reasonable assumption and answer it anyway.
 
 Schema:
