@@ -5,6 +5,11 @@ import re
 import sqlglot
 from sqlglot import expressions as exp
 
+# Read-only statement types: plain SELECTs and set operations (UNION /
+# INTERSECT / EXCEPT). Newer sqlglot groups set ops under SetOperation;
+# older versions make Intersect/Except subclasses of Union.
+_READ_ONLY = (exp.Select, getattr(exp, "SetOperation", exp.Union))
+
 
 def is_safe(sql: str) -> tuple[bool, str]:
     """Return (True, "") if sql is a single safe SELECT, else (False, reason)."""
@@ -17,7 +22,7 @@ def is_safe(sql: str) -> tuple[bool, str]:
     if len(statements) != 1:
         return False, "only a single SQL statement is allowed"
 
-    if not isinstance(statements[0], exp.Select):
+    if not isinstance(statements[0], _READ_ONLY):
         return False, "only SELECT queries are allowed"
 
     return True, ""

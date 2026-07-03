@@ -1,9 +1,12 @@
 """Runs SQL against banking.db and returns results as pandas DataFrames."""
 
+from pathlib import Path
+
 import pandas as pd
 from sqlalchemy import create_engine, text
 
-DB_PATH = "banking.db"
+# Anchor to this file's directory so the app works no matter where it's launched from.
+DB_PATH = Path(__file__).resolve().parent / "banking.db"
 
 engine = create_engine(f"sqlite:///{DB_PATH}")
 
